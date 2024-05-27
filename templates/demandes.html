@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <style>body{
+        text-align: center;
+    }
+
+  .progress {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .status {
+    color: rgb(143, 18, 18);
+    margin: auto;
+  }
+
+  .status h2 {
+    padding: 50px;
+    font-size: 80px;
+    font-weight: bold;
+  }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demandes</title>
+    
+</head>
+<body>
+    <H1>Demandes</H1>
+    <form action ="/downloadCsv" method="post">
+        <input type="hidden" id="numP" name="numP"  value="{{ numPage }}" required>
+        <input type="submit" class="btn btn-success" value="Exporter.csv">
+    </form>
+    <br>
+    <form action ="/downloadXlsx" method="post">
+        <input type="hidden" id="numP" name="numP"  value="{{ numPage }}" required>
+        <input type="submit" class="btn btn-success" value="Exporter.xlsx">
+    </form>
+    <br>
+    <table class="table table-bordered table-striped">
+        <th>Date de debut</th>
+        <th>Niveau</th>
+        <th>Ecole</th>
+        <th>Secteur</th>
+        <th>Lieu</th>
+        <th>Lien</th>
+        {% for demande in demandes %}
+        <tr><td>{{ demande['Date de debut'] }}</td>
+            <td>{{ demande['Niveau'] }}</td>
+            <td>{{ demande['Ecole'] }}</td>
+            <td>{{ demande['Secteur'] }}</td>
+        <td>{{ demande['Lieu'] }}</td>
+        <td><a href='{{ demande['Lien'] }}' class="btn btn-primary">Annonce</a></td>
+    </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

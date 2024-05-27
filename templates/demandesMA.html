@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>body{
+        text-align: center;
+    }
+
+  .progress {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .status {
+    color: rgb(143, 18, 18);
+    margin: auto;
+  }
+
+  .status h2 {
+    padding: 50px;
+    font-size: 80px;
+    font-weight: bold;
+  }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demandes</title>
+    
+</head>
+<body>
+    <H1>Demandes</H1>
+    <form action ="/downloadCsv" method="post">
+        <input type="hidden" id="numP" name="numP"  value="{{ numPage }}" required>
+        <input type="submit" value="Exporter.csv">
+    </form>
+    <br>
+    <form action ="/downloadXlsx" method="post">
+        <input type="hidden" id="numP" name="numP"  value="{{ numPage }}" required>
+            <input type="submit" value="Exporter.xlsx">
+    </form>
+    
+    <table border=4>
+        <th>Titre</th>
+        <th>Domaine</th>
+        <th>Duree</th>
+        <th>Niveau</th>
+        <th>Lien</th>
+        {% for demande in demandes %}
+        <tr><td>{{ demande['Titre'] }}</td>
+            <td>{{ demande['Domaine'] }}</td>
+            <td>{{ demande['Duree'] }}</td>
+            <td>{{ demande['Niveau'] }}</td>
+        <td><a href='{{ demande['Lien'] }}'>Annonce</a></td>
+    </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
