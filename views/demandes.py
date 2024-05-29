@@ -17,11 +17,3 @@ def demandes(numP=2):
     session['fields']=f
     return render_template("demandes.html",demandes=demandes,numPage=numP)
 
-@app_views.route('/graph-data')
-def graph_data():
-    data = {
-        'x': [1, 2, 3, 4, 5],
-        'y': [10, 20, 25, 30, 35]
-    }
-    fig = px.line(pd.DataFrame(data), x='x', y='y', title='Sample Line Plot')
-    return jsonify(fig.to_json())

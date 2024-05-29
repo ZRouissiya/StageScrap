@@ -10,6 +10,7 @@
         .navbar-nav .nav-item .nav-link {
             padding-right: 1.5rem;
         }
+
         .loading-bar {
             width: 100%;
             height: 4px;
@@ -62,6 +63,7 @@
             border-radius: 50%;
         }
 
+
     </style>
 </head>
 <body>
@@ -71,23 +73,123 @@
     <a class="navbar-brand" href="#">Data Dashboard</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Log In</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-            </li>
+            <div class="d-flex justify-content-end ">
+                <li class="nav-item">
+                    <button type="button" class="btn btn-outline-dark btn-lg" data-toggle="modal" data-target="#loginModal">
+                        Se connecter
+                      </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-lg btn-outline-primary active ml-2" data-toggle="modal" data-target="#registerModal">
+                        S'inscrire
+                      </button>
+                </li>
+            </div>
+           
         </ul>
     </div>
 </nav>
 
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg " style="height: 90%;" role="document">
+      <div class="modal-content " style="border-radius: 30px;">
+        <div class="modal-header text-center">
+          <h2 class="modal-title w-100" id="exampleModalLabel">Se connecter</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/logIn" method="post">
+            <div class="form-group">
+                <div class="container">
+                    <div class="form-group form-group-lg">
+                        <label for="email" style="font-size: 29px;" >Email</label>
+                    <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="test@example.com">
+                    <br>
+                    
+                    <label for="password" style="font-size: 26px;">Mot de passe</label>
+                    <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password">
+                    <div class="d-flex justify-content-end " > <p class="small mb-5 pb-lg-2"><a class="text-dark" href="#!">Mot de passe oublié?</a></p>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="d-flex justify-content-center mx-auto" style="width: 200px;">
+            
+                   <input type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark btn-block mb-4 btn-lg" value="Se connecter" id="">
+          </form>
+                                        
+                </div>
+                <div>
+                    <p class="d-flex justify-content-center mx-auto" style="width: 300px;">Vous n'avez pas de compte?<span> </span>  <a href="#!" class="text-dark-50 fw-bold"> S'inscrire</a>
+                    </p>
+                  </div>  
+        </div>
+        <div class="modal-footer">
+            
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content" style="border-radius: 30px;">
+        <div class="modal-header text-center">
+          <h2 class="modal-title w-100" id="exampleModalLabel">S'inscrire</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/signUp" method="post">
+            <div class="form-group">
+                        <div class="container">
+                            <label for="email" style="font-size: 26px;" >Email</label>
+                            <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="test@example.com">
+                            <br>
+                            <label for="nom" style="font-size: 26px;">Nom</label>
+                            <input type="text" name="nom" id="nom" class="form-control form-control-lg"placeholder="Nom">
+                            <br>
+                            <label for="prenom" style="font-size: 26px;">Prenom</label>
+                            <input type="text"name="prenom" id="prenom" class="form-control form-control-lg"placeholder="Prenom">
+                            <br>
+                            <label for="password" style="font-size: 26px;">Mot de passe</label>
+                            <input type="password" name="password" id="password" class="form-control form-control-lg"placeholder="Password">
+                            <br>
+                            <label for="conPassword" style="font-size: 26px;">Confirmer mot de passe</label>
+                            <input type="password" name="conPassword" id="conPassword" class="form-control form-control-lg" placeholder="Password">
+                            
+                        </div>
+                </div>
+                    </div>
+                    <div class="d-flex justify-content-center mx-auto" style="width: 200px;">
+                        <input type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark btn-block mb-4 btn-lg" value="S'inscrire" id="">
+
+                        <br>
+                                            
+                     </div> 
+          </form>
+        </div>
+        <div class="modal-footer">
+            
+
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- Loading Bar -->
 <div class="loading-bar" id="loading-bar">
     <div></div>
 </div>
 
 <!-- Nav Bar for Latest Scraped Data -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ml-0 mx-0">
     <div class="scraped-data navbar-nav" id="scraped-data">
         <!-- Links for scraped data items (to be populated dynamically) -->
     </div>
@@ -97,7 +199,8 @@
 
 <div class="container-fluid mt-4">
     <h2>Scraped Data Tables</h2>
-    <div id="carouselExampleDark" class="carousel slide bg-dark" data-ride="carousel">
+
+    <div id="carouselExampleDark" class="carousel slide bg-dark" style="border-radius: 30px;" data-ride="carousel">
         <ol class="carousel-indicators" id="carousel-indicators">
             <!-- Indicators will be dynamically added here -->
         </ol>
@@ -114,10 +217,43 @@
           </a>
     </div>
 </div>
-<div class="container mt-4">
-    <h2>Graphs of Scraped Data</h2>
-    <div id="plotly-graph"></div>
+
 </div>
+<h2>Radar Chart of Scraped Data</h2>
+<div class="container">
+<div class="d-flex flex-row justify-content-center ">
+    <div class="card border-secondary mx-1" style="border-radius: 11px;">
+        
+        <div class="loading-bar" id="loading-bar-card1">
+            <div></div>
+        </div>
+        <div class="bg-image hover-overplay"data-mdb-ripple-init data-mdb-ripple-color="dark">
+            <div id="radar-chart" class=" mx-auto ml-auto"></div>
+            <div class="card-body">
+                <h5 class="card-title">Stagiaires.ma</h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, voluptatibus?</p>
+                <a class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+    <div class="card border-secondary ml-1" style="border-radius: 11px;">
+        <div class="loading-bar" id="loading-bar-card2" >
+            <div></div>
+        </div>
+        <div class="bg-image hover-overplay" data-mdb-ripple-init data-mdb-ripple-color="light">
+            <div id="radar-chart-MA" class=" mx-auto ml-auto"></div>
+            <div class="card-body">
+                <h5 class="card-title">MarocAnnonces.ma</h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, voluptatibus?</p>
+                <a class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container-fluid mt-4">
+
+   
 <script>
     let maxHeight = 0;
 
@@ -178,14 +314,9 @@
 
                             // Add carousel indicator
                             const indicator = document.createElement('li');
-                            //indicator.type = 'button';
                             indicator.setAttribute('data-target', '#carouselExampleDark');
                             indicator.setAttribute('data-slide-to', index);
-                            //indicator.setAttribute('aria-label', `Slide ${index + 1}`);
-                            // if (index === 0) {
-                            //     indicator.classList.add('active');
-                            //     //indicator.setAttribute('aria-current', 'true');
-                            // }
+
                             indicatorsContainer.appendChild(indicator);
 
                             // Calculate max height
@@ -214,15 +345,86 @@
     }
 
     function fetchGraphData() {
-        fetch('/graph-data')
+        const loadingBar2 = document.getElementById('loading-bar-card1');
+        loadingBar2.style.display = 'block'; // Show loading bar
+        fetch('/graph-data-demandes')
             .then(response => response.json())
-            .then(graphJSON => {
-                const graph = JSON.parse(graphJSON);
-                Plotly.newPlot('plotly-graph', graph.data, graph.layout);
-            });
+            .then(data => {
+                const domains = {};
+                data.forEach(item => {
+                    if (domains[item.Secteur]) {
+                        domains[item.Secteur]++;
+                    } else {
+                        domains[item.Secteur] = 1;
+                    }
+                });
+
+                const radarData = [{
+                    type: 'scatterpolar',
+                    r: Object.values(domains),
+                    theta: Object.keys(domains),
+                    fill: 'toself',
+                    name: 'Secteur'
+                }];
+
+                const layout = {
+                    polar: {
+                        radialaxis: {
+                            visible: true,
+                            range: [0, Math.max(...Object.values(domains))]
+                        }
+                    }
+                };
+
+                Plotly.newPlot('radar-chart', radarData, layout);
+                loadingBar2.style.display = 'none'; // Hide loading bar
+
+            })
+            .catch(error => console.error('Error fetching graph data:', error));
+
+    }
+    function fetchGraphDataMA() {
+        const loadingBar2 = document.getElementById('loading-bar-card2');
+        loadingBar2.style.display = 'block'; // Show loading bar
+        fetch('/graph-data-demandesMA')
+            .then(response => response.json())
+            .then(data => {
+                const domains = {};
+                data.forEach(item => {
+                    if (domains[item.Domaine]) {
+                        domains[item.Domaine]++;
+                    } else {
+                        domains[item.Domaine] = 1;
+                    }
+                });
+
+                const radarData = [{
+                    type: 'scatterpolar',
+                    r: Object.values(domains),
+                    theta: Object.keys(domains),
+                    fill: 'toself',
+                    name: 'Domaine'
+                }];
+
+                const layout = {
+                    polar: {
+                        radialaxis: {
+                            visible: true,
+                            range: [0, Math.max(...Object.values(domains))]
+                        }
+                    }
+                };
+
+                Plotly.newPlot('radar-chart-MA', radarData, layout);
+                loadingBar2.style.display = 'none'; // Hide loading bar
+            })
+            .catch(error => console.error('Error fetching graph data:', error));
+
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+        fetchGraphDataMA();
+        
         fetchLatestData();
         fetchGraphData();
     });
@@ -232,5 +434,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 </body>
 </html>
