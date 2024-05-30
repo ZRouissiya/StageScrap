@@ -62,32 +62,70 @@
         .carousel-control-next-icon {
             border-radius: 50%;
         }
-
+        .nav-link{
+            font-size: 26px;
+        }
 
     </style>
 </head>
 <body>
 
-<!-- Top Bar with Login and Register -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Data Dashboard</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <div class="d-flex justify-content-end ">
-                <li class="nav-item">
-                    <button type="button" class="btn btn-outline-dark btn-lg" data-toggle="modal" data-target="#loginModal">
-                        Se connecter
-                      </button>
-                </li>
-                <li class="nav-item">
-                    <button type="button" class="btn btn-lg btn-outline-primary active ml-2" data-toggle="modal" data-target="#registerModal">
-                        S'inscrire
-                      </button>
-                </li>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white d-flex flex-row justify-content-center border-0">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="font-size: 20px;" href="./index.html">
+            <div class="d-flex align-items-end">
+            StageScrap        </div>
+        </a>
+        <div class="w-100">
            
-        </ul>
-    </div>
+            <div class="navbar-collapse  " id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <ul class="navbar-nav mx-auto  mb-lg-0">
+                        <li class="nav-item  ">
+                        <a class="nav-link" href="/demandes" role="button" aria-expanded="false">
+                            Stagiares.ma
+                        </a>
+                                
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="/demandesMA" role="button" aria-expanded="false">
+                            MarocAnnonces.ma
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href="#" role="button">
+                            site.ma
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" role="button">
+                            site.ma
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" role="button" aria-expanded="false">
+                            site.ma
+                            </a>
+                        </li>                    
+                    </ul> 
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            {% if logged is defined %}
+            <button type="button" class="btn btn-outline-dark btn-lg mt-5" style="width: 200px;"data-toggle="modal" data-target="#loginModal">
+                {{logged}}
+            </button>
+            {% else %}
+                <button type="button" class="btn btn-outline-dark btn-lg mt-5" style="width: 200px;"data-toggle="modal" data-target="#loginModal">
+                    Se connecter
+                </button>
+                <button type="button" class="btn btn-lg btn-outline-primary mt-5 active ml-2" data-toggle="modal" data-target="#registerModal">
+                    S'inscrire
+                </button>
+            {%endif%}
+        </div>
+   </div>
 </nav>
 
 <!-- Modal -->
@@ -183,13 +221,14 @@
       </div>
     </div>
   </div>
+  <hr class="hr hr-blurry" />
 <!-- Loading Bar -->
 <div class="loading-bar" id="loading-bar">
     <div></div>
 </div>
 
 <!-- Nav Bar for Latest Scraped Data -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark ml-0 mx-0">
+<nav class="navbar navbar-expand-lg navbar-dark  ml-0 mx-0">
     <div class="scraped-data navbar-nav" id="scraped-data">
         <!-- Links for scraped data items (to be populated dynamically) -->
     </div>
@@ -198,7 +237,6 @@
 
 
 <div class="container-fluid mt-4">
-    <h2>Scraped Data Tables</h2>
 
     <div id="carouselExampleDark" class="carousel slide bg-dark" style="border-radius: 30px;" data-ride="carousel">
         <ol class="carousel-indicators" id="carousel-indicators">
@@ -309,6 +347,13 @@
                                 tbody.appendChild(row);
                             });
                             table.appendChild(tbody);
+                            const title=document.createElement('div');
+                            title.classList.add('container','positon-relative','z-index-10','d-flex','z-index','align-items-start','flex-column','justify-content-center');
+                            const p =document.createElement('p');
+                            p.classList.add('title-small', 'text-white', 'opacity-75' ,'mb-0');
+                            p.innerText="Stagiaires.ma";
+                            title.appendChild(p);
+                           // carouselItem.appendChild(title);
                             carouselItem.appendChild(table);
                             slidesContainer.appendChild(carouselItem);
 

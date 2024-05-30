@@ -9,6 +9,8 @@ app.register_blueprint(app_views)
 
 @app.route('/',strict_slashes=False)
 def index():
+    if 'logged' in session:
+        return render_template("index.html",logged=session['logged'])
     return render_template("index.html")
 
 

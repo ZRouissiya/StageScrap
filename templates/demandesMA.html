@@ -32,15 +32,12 @@
 </head>
 <body>
     <H1>Demandes</H1>
-    <form action ="/downloadCsv" method="post">
-        <input type="hidden" id="numP" name="numP"  value="{{ numPage }}" required>
-        <input type="submit" value="Exporter.csv">
+    <form action ="/downloadCsv" method="post">   
+      <input type="submit" class="btn btn-success" value="Exporter.csv">
     </form>
     <br>
     <form action ="/downloadXlsx" method="post">
-        <input type="hidden" id="numP" name="numP"  value="{{ numPage }}" required>
-            <input type="submit" value="Exporter.xlsx">
-    </form>
+      <input type="submit" class="btn btn-success" value="Exporter.xlsx">    </form>
     
     <table class="table table-bordered table-striped">
         <th>Titre</th>

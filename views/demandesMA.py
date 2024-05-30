@@ -9,11 +9,13 @@ import json
 @app_views.route('/demandesMA',strict_slashes=False)
 @app_views.route("/demandesMA/<numP>",strict_slashes=False)
 def demandesMA(numP=2):
+    if 'dataMA' in session:
+        return render_template("demandesMA.html",demandes=session['dataMA'])
     scr=MAStage()
     demandes=scr.scrapData(numPage=numP)
     f=['Titre', 'Domaine', 'Duree', 'Niveau', 'Lien']
-    session['data']=demandes
-    session['fields']=f
-    return render_template("demandesMA.html",demandes=demandes,numPage=numP)
+    session['dataMA']=demandes
+    session['fieldsMA']=f
+    return render_template("demandesMA.html",demandes=demandes)
 
 

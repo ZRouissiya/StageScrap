@@ -1,5 +1,5 @@
 from views import app_views
-from flask import request,render_template,session,redirect
+from flask import request,render_template,session,redirect,jsonify,Response
 import mysql.connector as con
 from flask_bcrypt import Bcrypt
 bc=Bcrypt()
@@ -17,10 +17,10 @@ def logIn():
                     session['email']=email
                     session['password']=password
                     session['logged']=True
-                    return redirect("/dashboard"),200
+                    return redirect("/dashboard",code=301)
     except Exception as e:
         print(e)
-    return redirect("/")
+    return redirect("/",code=303)
 @app_views.route('/signUp', methods=['POST'],strict_slashes=False)
 def signUp():
     
@@ -43,12 +43,12 @@ def signUp():
             session['email']=email
             session['password']=password
             session['logged']=True
-            return redirect("/dashboard")
+            return redirect("/dashboard",code=301)
         except Exception as e:
             print("erreur")
-            return redirect("/")
+            return redirect("/",code=303)
 
         
-    return redirect("/")
+    return redirect("/",code=303)
 
     
