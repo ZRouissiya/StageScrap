@@ -1,395 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scraped Data Dashboard</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <style>
-        .navbar-nav .nav-item .nav-link {
-            padding-right: 1.5rem;
-        }
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
-        .loading-bar {
-            width: 100%;
-            height: 4px;
-            background: #f3f3f3;
-            overflow: hidden;
-            position: relative;
-            display: none; /* Hidden by default */
-        }
-        .loading-bar div {
-            width: 0;
+      <!-- site metas -->
+      <title>Home</title>
+      <meta name="keywords" content="Plan, Brainstorm, Analyze, Design">
+      <meta name="description" content="Your Visual Collaboration Workspace">
+      <meta name="author" content="Kavidi De Silva">
+
+      <!-- bootstrap grid css -->
+      <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-grid.css')}}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+      <!-- fontawesome icons for toggle navbar -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+      <!-- style css -->
+      <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+
+      <style type="text/css">
+
+        body {
+            color: #04263D;
+            font-size: 14px;
+            margin: 0px;
             height: 100%;
-            background: #007bff;
-            position: absolute;
-            animation: loading 2s infinite;
-        }
-        @keyframes loading {
-            0% { left: 0; width: 0; }
-            50% { left: 25%; width: 50%; }
-            100% { left: 100%; width: 0; }
-        }
-        .carousel-item {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-        }
-        .carousel-item.active {
-            display: flex;
-        }
-        .table-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .table {
-            width: 80%;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #f3f3f3, #e6e6e6);
-        }
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 3%;
-            filter: invert(100%);
-        }
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            border-radius: 50%;
-        }
-        .nav-link{
-            font-size: 26px;
+            background: url("{{url_for('static',filename='images/header_bg.png')}}");
+            background-repeat: no-repeat;
         }
 
-    </style>
-</head>
-<body>
+      </style>
+     
+   </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white d-flex flex-row justify-content-center border-0">
+
+   <!-- body -->
+   <body>
+    <!-- div container start -->
     <div class="container-fluid">
-        <a class="navbar-brand" style="font-size: 20px;" href="./index.html">
-            <div class="d-flex align-items-end">
-            StageScrap        </div>
-        </a>
-        <div class="w-100">
+
+        <!-- navbar start -->
+        <div class="row center">
+         <div class="col-md-12" style="width: 100%;">
+          
+            <div class="col-xs-6 logo-div">
+              <a href="/" ><img class="logo" alt="Logo" src="{{url_for('static', filename='images/logo.png')}}" /></a>
+             </div>
+            <div class="col-xs-6 justify-content-end topnav" id="myTopnav" style=" margin-left: auto; margin-right: 0px;">
            
-            <div class="navbar-collapse  " id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <ul class="navbar-nav mx-auto  mb-lg-0">
-                        <li class="nav-item  ">
-                        <a class="nav-link" href="/demandes" role="button" aria-expanded="false">
-                            Stagiares.ma
-                        </a>
-                                
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="/demandesMA" role="button" aria-expanded="false">
-                            MarocAnnonces.ma
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"  href="#" role="button">
-                            site.ma
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" role="button">
-                            site.ma
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="#" role="button" aria-expanded="false">
-                            site.ma
-                            </a>
-                        </li>                    
-                    </ul> 
-                </ul>
+              <a href="#home" class="active" >Accueil</a>
+              <a href="#stagiaires" >Stagiaires.ma</a>
+              <a href="#marocannonces" >MarocAnnonces.ma</a>
+              <a href="#site" >Site.ma</a>
+              {% if logged is defined %}
+              <a href="/logout" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+              </svg></a>
+              {% else %}
+              <a href="#signup" style="border: none; margin: auto;">
+                <button class="nav-btn red" data-toggle="modal" data-target="#loginModal">Se connecter</button>              </a>
+              {% endif %}
+              <a href="javascript:void(0);" class="icon" onclick="openNav()">
+                <i class="fa fa-bars"></i>
+              </a>
             </div>
-        </div>
-        <div class="d-flex justify-content-end">
-            {% if logged is defined %}
-            <button type="button" class="btn btn-outline-dark btn-lg mt-5" style="width: 200px;"data-toggle="modal" data-target="#loginModal">
-                {{logged}}
-            </button>
-            {% else %}
-                <button type="button" class="btn btn-outline-dark btn-lg mt-5" style="width: 200px;"data-toggle="modal" data-target="#loginModal">
-                    Se connecter
-                </button>
-                <button type="button" class="btn btn-lg btn-outline-primary mt-5 active ml-2" data-toggle="modal" data-target="#registerModal">
-                    S'inscrire
-                </button>
-            {%endif%}
-        </div>
-   </div>
-</nav>
 
-<!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg " style="height: 90%;" role="document">
-      <div class="modal-content " style="border-radius: 30px;">
-        <div class="modal-header text-center">
-          <h2 class="modal-title w-100" id="exampleModalLabel">Se connecter</h2>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/logIn" method="post">
-            <div class="form-group">
-                <div class="container">
-                    <div class="form-group form-group-lg">
-                        <label for="email" style="font-size: 29px;" >Email</label>
-                    <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="test@example.com">
-                    <br>
-                    
-                    <label for="password" style="font-size: 26px;">Mot de passe</label>
-                    <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password">
-                    <div class="d-flex justify-content-end " > <p class="small mb-5 pb-lg-2"><a class="text-dark" href="#!">Mot de passe oublié?</a></p>
-                    </div>
-                    
-                    </div>
-                </div>
+            <div id="mySidenav" class="sidenav">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <a href="#home" class="active" >Accueil</a>
+              <a href="#stagiaires" >Stagiaires.ma</a>
+              <a href="#marocannonces" >MarocAnnonces.ma</a>
+              <a href="#site" >Site.ma</a>
+              {% if logged is defined %}
+              <a href="/logout" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+              </svg></a>
+              {% else %}
+              <a href="#signup" style="border: none; margin: auto;">
+                <button class="nav-btn red" data-toggle="modal" data-target="#loginModal">Se connecter</button>              </a>
+              {% endif %}
             </div>
-            </div>
-            <div class="d-flex justify-content-center mx-auto" style="width: 200px;">
-            
-                   <input type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark btn-block mb-4 btn-lg" value="Se connecter" id="">
-          </form>
-                                        
-                </div>
-                <div>
-                    <p class="d-flex justify-content-center mx-auto" style="width: 300px;">Vous n'avez pas de compte?<span> </span>  <a href="#!" class="text-dark-50 fw-bold"> S'inscrire</a>
-                    </p>
-                  </div>  
+          </div>   
         </div>
-        <div class="modal-footer">
-            
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content" style="border-radius: 30px;">
-        <div class="modal-header text-center">
-          <h2 class="modal-title w-100" id="exampleModalLabel">S'inscrire</h2>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/signUp" method="post">
-            <div class="form-group">
-                        <div class="container">
-                            <label for="email" style="font-size: 26px;" >Email</label>
-                            <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="test@example.com">
-                            <br>
-                            <label for="nom" style="font-size: 26px;">Nom</label>
-                            <input type="text" name="nom" id="nom" class="form-control form-control-lg"placeholder="Nom">
-                            <br>
-                            <label for="prenom" style="font-size: 26px;">Prenom</label>
-                            <input type="text"name="prenom" id="prenom" class="form-control form-control-lg"placeholder="Prenom">
-                            <br>
-                            <label for="password" style="font-size: 26px;">Mot de passe</label>
-                            <input type="password" name="password" id="password" class="form-control form-control-lg"placeholder="Password">
-                            <br>
-                            <label for="conPassword" style="font-size: 26px;">Confirmer mot de passe</label>
-                            <input type="password" name="conPassword" id="conPassword" class="form-control form-control-lg" placeholder="Password">
-                            
-                        </div>
-                </div>
-                    </div>
-                    <div class="d-flex justify-content-center mx-auto" style="width: 200px;">
-                        <input type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark btn-block mb-4 btn-lg" value="S'inscrire" id="">
-
-                        <br>
-                                            
-                     </div> 
-          </form>
-        </div>
-        <div class="modal-footer">
-            
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr class="hr hr-blurry" />
-<!-- Loading Bar -->
-<div class="loading-bar" id="loading-bar">
-    <div></div>
-</div>
-
-<!-- Nav Bar for Latest Scraped Data -->
-<nav class="navbar navbar-expand-lg navbar-dark  ml-0 mx-0">
-    <div class="scraped-data navbar-nav" id="scraped-data">
-        <!-- Links for scraped data items (to be populated dynamically) -->
-    </div>
-</nav>
-
-
-
-<div class="container-fluid mt-4">
-
-    <div id="carouselExampleDark" class="carousel slide bg-dark" style="border-radius: 30px;" data-ride="carousel">
-        <ol class="carousel-indicators" id="carousel-indicators">
-            <!-- Indicators will be dynamically added here -->
-        </ol>
-        <div class="carousel-inner" id="carousel-inner">
-            <!-- Carousel items will be dynamically added here -->
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-    </div>
-</div>
-
-</div>
-<h2>Radar Chart of Scraped Data</h2>
-<div class="container">
-<div class="d-flex flex-row justify-content-center ">
-    <div class="card border-secondary mx-1" style="border-radius: 11px;">
         
-        <div class="loading-bar" id="loading-bar-card1">
-            <div></div>
+        <!-- navbar end -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg " style="height: 90%;" role="document">
+            <div class="modal-content " style="border-radius: 30px;">
+              <div class="modal-header d-flex justify-content-center" style="margin-bottom: 0px;">
+                <img class="logo" alt="Logo" src="{{url_for('static', filename='images/logo.png')}}" />
+                <h2 class="modal-title w-100 text-center mt-3" id="ModalLabel"><b>Se connecter</b></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/logIn" method="post">
+                  <div class="form-group">
+                      <div class="container">
+                          <div class="form-group form-group-lg ">
+                              <label for="email" style="font-size: 26px;" ><b>Email</b></label>
+                              <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="test@example.com">
+                                <label for="password" style="font-size: 26px;" class="mt-5"><b>Mot de passe</b></label>
+                                <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password">
+                                <div class="d-flex justify-content-center" > <p class="small mb-5 pb-lg-2"><a class="text-dark" href="#!">Mot de passe oublié?</a></p>
+                                </div>
+                          
+                            </div>
+                        </div>
+                    </div>
+              </div>
+                  <div class="d-flex justify-content-center mx-auto" >
+                  
+                         <input type="submit" data-mdb-button-init data-mdb-ripple-init class="mod-btn btn red  mb-4 btn-lg" value="Se connecter" id="">
+              </form>
+                                              
+                  </div>
+                      <div class="align-items">
+                          <p class="d-flex justify-content-center mx-auto" style="width: 300px;">Vous n'avez pas de compte?</p>
+                        </div>  
+                        <button  type ="button" class="nav-btn red d-flex justify-content-center mx-auto mb-4"  data-dismiss="modal" data-toggle="modal" data-target="#registerModal">S'inscrire</button>
+
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
         </div>
-        <div class="bg-image hover-overplay"data-mdb-ripple-init data-mdb-ripple-color="dark">
-            <div id="radar-chart" class=" mx-auto ml-auto"></div>
-            <div class="card-body">
-                <h5 class="card-title">Stagiaires.ma</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, voluptatibus?</p>
-                <a class="btn btn-primary">View</a>
+      
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="border-radius: 30px;">
+              <div class="modal-header d-flex justify-content-center">
+                <img class="logo" alt="Logo" src="{{url_for('static', filename='images/logo.png')}}" />
+                <h2 class="modal-title w-100 text-center mt-3" id="ModalLabel"><b>S'inscrire</b></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body register">
+                <form action="/signUp" method="post">
+                  <div class="form-group">
+                              <div class="container">
+                                  <label for="email" style="font-size: 22px;" ><b>Email</b></label>
+                                  <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="test@example.com">
+                                  <br>
+                                  <label for="nom" style="font-size: 22px;" class="mt-5"><b>Nom</b></label>
+                                  <input type="text" name="nom" id="nom" class="form-control form-control-lg"placeholder="Nom">
+                                  <br>
+                                  <label for="prenom" style="font-size: 22px;" class="mt-5"><b>Prenom</b></label>
+                                  <input type="text"name="prenom" id="prenom" class="form-control form-control-lg"placeholder="Prenom">
+                                  <br>
+                                  <label for="password" style="font-size: 22px;" class="mt-5"><b>Mot de passe</b></label>
+                                  <input type="password" name="password" id="password" class="form-control form-control-lg"placeholder="Password">
+                                  <br>
+                                  <label for="conPassword" style="font-size: 22px;" class="mt-5"><b>Confirmer mot de passe</b></label>
+                                  <input type="password" name="conPassword" id="conPassword" class="form-control form-control-lg" placeholder="Password">
+                                  
+                              </div>
+                      </div>
+                </div>
+                          <div class="d-flex justify-content-center mx-auto" style="width: 200px;">
+                            <input type="submit" data-mdb-button-init data-mdb-ripple-init class="mod-btn btn red  mb-4 btn-lg" value="S'inscrire" id="">
+                              <br>
+                           </div> 
+                </form>
+            </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+
+        <!-- H1 heading start-->
+        <div class="row center-w100" >
+            <div class="col-md-12">
+                <div class="div-heading">
+                    <h1 style="width: 100%;"><b>Bienvenue sur STageScrape</b></h1>
+                    <h2>Votre solution ultime pour l'extraction et l'analyse de données</h2>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card border-secondary ml-1" style="border-radius: 11px;">
-        <div class="loading-bar" id="loading-bar-card2" >
-            <div></div>
-        </div>
-        <div class="bg-image hover-overplay" data-mdb-ripple-init data-mdb-ripple-color="light">
-            <div id="radar-chart-MA" class=" mx-auto ml-auto"></div>
-            <div class="card-body">
-                <h5 class="card-title">MarocAnnonces.ma</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, voluptatibus?</p>
-                <a class="btn btn-primary">View</a>
+         <!-- H1 heading end -->
+
+        <!-- hero start -->
+        <div class="row center">
+            <div class="col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="div-hero">
+                        <ul style="list-style-type:none;">
+                          <li> <img src="{{url_for('static', filename='images/icon_2.png')}}" alt="Exportation facile des données en CSV" />Exportation facile des données en CSV, XLSX</li>
+                          <li> <img src="{{url_for('static', filename='images/icon_1.png')}}" alt="Visualisation graphique intuitive" />Visualisation graphique intuitive</li>
+                          <li> <img src="{{url_for('static', filename='images/icon_3.png')}}" alt="Extraction automatique des données" />Extraction automatique des données</li>
+                          <li><a href="#getstarted"  class="custom-btn custom-btn-lg red">Commencez dès maintenant!</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- <object type="image/svg+xml" data="images/animation_vector.svg">
+                    <img src="images/animation_vector.svg" />
+                </object> -->
+                <lottie-player src="https://uploads-ssl.webflow.com/615d70fffa2edc3490194423/62fe90ff313c086d291183d1_animation_l6ze9o8n.json" background="transparent"  speed="1"  style="width: auto; height: auto;" loop autoplay></lottie-player>
             </div>
         </div>
+        <!-- hero end -->
+
+        <!-- customer logos start -->
+        <div class="row center">
+            <div class="col-md-12 col-sm-12 " style="text-align: center; align-content: center; margin: 50px 0px;">
+                <div class="row d-flex justify-content-lg-center">
+                    <h2 class=" text-center">Sites supportés</h2>
+                    <img class="responsive" alt="Customer Logos" src="{{url_for('static', filename='images/customer_logos.png')}}" />
+                </div>
+            </div>
+        </div>
+        <!-- customer logos end -->
+
+        <!-- tab section start -->
+        <div class="row center">
+            <div class="col-md-12" style="margin-bottom: 40px;">
+                <div class="tab">
+                  <button class="tablinks" onclick="openCity(event, 'tab-1')" id="defaultOpen">Exportation facile</button>
+                  <button class="tablinks" onclick="openCity(event, 'tab-2')">Visualisation graphique</button>
+                  <button class="tablinks" onclick="openCity(event, 'tab-3')">Extraction automatique</button>
+                </div>
+
+                <div id="tab-1" class="tabcontent">
+                  <br>
+                    <h3>Exportation facile des données en CSV, XLSX</h3>
+                    <p>Avec StageScrape, l'exportation de vos données n'a jamais été aussi simple. Grâce à notre fonctionnalité d'exportation intuitive, vous pouvez facilement convertir vos données en formats CSV et XLSX en quelques clics. Que vous ayez besoin de partager vos informations avec votre équipe, d'analyser les données dans Excel, ou de les intégrer dans d'autres applications, notre outil vous permet de le faire sans effort</p>
+                </div>
+
+                <div id="tab-2" class="tabcontent">
+                  <br>
+                  <h3>Visualisation graphique intuitive</h3>
+                    <p>Transformez vos données brutes en informations claires et exploitables grâce à notre fonctionnalité de visualisation graphique intuitive. Nos outils de visualisation vous permettent de créer des graphiques interactifs et des tableaux de bord dynamiques qui facilitent l'analyse et la compréhension de vos données.</p>
+                </div>
+
+                <div id="tab-3" class="tabcontent">
+                  <br>  
+                  <h3>Extraction automatique des données</h3>
+                  <p>Simplifiez et automatisez l'extraction de données depuis le web. Notre outil d'extraction automatique vous permet de collecter des informations pertinentes et actualisées sans effort manuel, vous faisant gagner du temps et réduisant les erreurs.</p>
+                </div>
+            </div>
+        </div>
+        <!-- tab section end -->
+
+         <!-- three divs start -->
+         <div class="container">
+          <div class="d-flex flex-row justify-content-center">
+              <div class="card border-danger">
+                  <div class="loading-bar" id="loading-bar-card2">
+                      <div></div>
+                  </div>
+                  <div>
+                      <div id="radar-chart-MA" class="mx-auto ml-auto"></div>
+                  </div>
+                  <div class="card-body">
+                     <h2 class="card-title"><b>MarocAnnonces.ma</b></h2>
+                      <p class="mx-auto">Visualisez les domaines de stages et leur nombre de publications sur MarocAnnonces.ma .</p>
+                      <a href="#getstarted" class="custom-btn red">Visualiser</a>
+                  </div>
+              </div>
+      
+              <div class="card border-danger">
+                  <div class="loading-bar" id="loading-bar-card1">
+                      <div></div>
+                  </div>
+                  <div class="bg-image">
+                      <div id="radar-chart" class="mx-auto ml-auto "></div>
+                  </div>
+                  <div class="card-body custom-card-body">
+                      <h2 class="card-title" style="width:100%"><b>Stagiaires.ma</b></h2>
+                      <p class="mx-auto ">Ce graphique radar présente un aperçu des domaines de stage disponibles sur Stagiaires.ma, ainsi que le nombre de publications pour chaque domaine. Chaque axe du graphique représente un domaine spécifique, tel que l'informatique, le marketing, la finance, etc. La distance de chaque point du centre du graphique indique le nombre de publications pour ce domaine particulier. </p>
+                      <a href="#getstarted" class="custom-btn red">Visualiser</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <!-- div container ends -->
+
+    <!-- footer start -->
+    <div class="footer" >
+      <div class="container-fluid">
+           <div class="row center">
+              <div class="col-md-4 col-sm-12 justify-content-center">
+                  
+              </div>
+              <div class="col"></div>
+              <div class="col-md-4 col-sm-12 justify-content-center">
+                  
+              </div>
+          </div>
+       </div>
     </div>
-</div>
-</div>
-<div class="container-fluid mt-4">
+    <!-- footer end -->
+        
 
-   
-<script>
-    let maxHeight = 0;
-
-    function fetchLatestData() {
-        const loadingBar = document.getElementById('loading-bar');
-        const slidesContainer = document.getElementById('carousel-inner');
-        const indicatorsContainer = document.getElementById('carousel-indicators');
-        loadingBar.style.display = 'block'; // Show loading bar
-        fetch('/latest-data')
-            .then(response => response.json())
-            .then(dataItems => {
-                if (Array.isArray(dataItems) && dataItems.length > 0) {
-                    dataItems.forEach((siteData, index) => {
-                        if (Array.isArray(siteData) && siteData.length > 0) {
-                            const carouselItem = document.createElement('div');
-                            carouselItem.classList.add('carousel-item');
-                            if (index === 0) {
-                                carouselItem.classList.add('active');
-                            }
-
-                            const fields = Object.keys(siteData[0]);
-                            const table = document.createElement('table');
-                            table.classList.add('table', 'table-bordered', 'table-striped');
-
-                            // Create table header
-                            const thead = document.createElement('thead');
-                            const headerRow = document.createElement('tr');
-                            fields.forEach(field => {
-                                const th = document.createElement('th');
-                                th.textContent = field;
-                                headerRow.appendChild(th);
-                            });
-                            thead.appendChild(headerRow);
-                            table.appendChild(thead);
-
-                            // Create table body
-                            const tbody = document.createElement('tbody');
-                            siteData.forEach(item => {
-                                const row = document.createElement('tr');
-                                fields.forEach(field => {
-                                    const cell = document.createElement('td');
-                                    if (field === 'Lien') {
-                                        const linkButton = document.createElement('a');
-                                        linkButton.href = item[field];
-                                        linkButton.textContent = 'View';
-                                        linkButton.classList.add('btn', 'btn-primary');
-                                        cell.appendChild(linkButton);
-                                    } else {
-                                        cell.textContent = item[field];
-                                    }
-                                    row.appendChild(cell);
-                                });
-                                tbody.appendChild(row);
-                            });
-                            table.appendChild(tbody);
-                            const title=document.createElement('div');
-                            title.classList.add('container','positon-relative','z-index-10','d-flex','z-index','align-items-start','flex-column','justify-content-center');
-                            const p =document.createElement('p');
-                            p.classList.add('title-small', 'text-white', 'opacity-75' ,'mb-0');
-                            p.innerText="Stagiaires.ma";
-                            title.appendChild(p);
-                           // carouselItem.appendChild(title);
-                            carouselItem.appendChild(table);
-                            slidesContainer.appendChild(carouselItem);
-
-                            // Add carousel indicator
-                            const indicator = document.createElement('li');
-                            indicator.setAttribute('data-target', '#carouselExampleDark');
-                            indicator.setAttribute('data-slide-to', index);
-
-                            indicatorsContainer.appendChild(indicator);
-
-                            // Calculate max height
-                            const tableHeight = carouselItem.offsetHeight;
-                            if (tableHeight > maxHeight) {
-                                maxHeight = tableHeight;
-                            }
-                        } else {
-                            console.error('Invalid siteData:', siteData);
-                        }
-                    });
-
-                    // Apply max height to all tables
-                    document.querySelectorAll('.table-container').forEach(container => {
-                        container.style.height = maxHeight + 'px';
-                    });
-                } else {
-                    console.error('Invalid dataItems:', dataItems);
-                }
-                loadingBar.style.display = 'none'; // Hide loading bar
-            })
-            .catch(error => {
-                console.error('Error fetching latest data:', error);
-                loadingBar.style.display = 'none'; // Hide loading bar on error
-            });
-    }
-
-    function fetchGraphData() {
+    <!-- Javascript files-->
+    <!--script js -->
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
+    <script>
+      function fetchGraphData() {
         const loadingBar2 = document.getElementById('loading-bar-card1');
         loadingBar2.style.display = 'block'; // Show loading bar
         fetch('/graph-data-demandes')
@@ -429,7 +348,7 @@
 
     }
     function fetchGraphDataMA() {
-        const loadingBar2 = document.getElementById('loading-bar-card2');
+        const loadingBar2 = document.getElementById('loading-bar-card1');
         loadingBar2.style.display = 'block'; // Show loading bar
         fetch('/graph-data-demandesMA')
             .then(response => response.json())
@@ -467,19 +386,21 @@
 
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        fetchGraphDataMA();
-        
-        fetchLatestData();
+    document.addEventListener('DOMContentLoaded', function() {        
+        fetchGraphDataMA()
         fetchGraphData();
     });
-</script>
+    </script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!-- Lottie player js -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  </body>
+  <!-- body end -->
 
-</body>
+
 </html>

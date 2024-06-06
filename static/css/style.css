@@ -1,0 +1,420 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+     box-sizing: border-box !important;
+      font-family: 'Roboto', sans-serif;
+
+}
+
+html {
+     scroll-behavior: smooth;
+}
+
+body {
+     color: #04263D;
+     font-size: 14px;
+     margin: 0px;
+      height: 100%;
+      background: url(images/header_bg.png);
+      background-repeat: no-repeat;
+}
+
+h1 {
+     font-size: 45px;
+     font-family: 'Poppins', sans-serif;
+     padding-bottom: 0px;
+}
+
+h2 {
+     font-size: 20px;
+     font-family: 'Poppins', sans-serif;
+     font-weight: normal;
+     color: black;
+     margin-top: 0px;
+}
+
+h3 {
+     font-size: 16px;
+     font-family: 'Poppins', sans-serif;
+}
+
+p {
+     font-size: 14px;
+      font-family: 'Roboto', sans-serif;
+      color: #666666;
+}
+
+@media screen and (max-width: 600px) {
+  h1{font-size: 30px; padding: 30px 0px; line-height: 1.2;}
+  h2{font-size: 18px;}
+  h3{font-size: 14px;}
+  p{font-size: 12px;}
+}
+
+div{
+    
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   -ms-flex-wrap:wrap;
+   flex-wrap:wrap;
+}
+
+
+.div-heading {
+   width: 80%;
+   margin: auto;
+   text-align: left;
+  line-height: 0.9;
+  color: black;
+}
+.div-hero {
+  display: flex;
+   width: 100%;
+   margin: auto;
+   text-align: left;
+  line-height: 0.9;
+  color: black;
+}
+
+.footer{
+
+  width: 100%;
+  height: 300px;
+  background-color: #F5F8FF;
+  -webkit-clip-path: polygon(0 46%, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 46%, 100% 0, 100% 100%, 0% 100%);
+
+
+}
+
+
+
+/*Scrollbar css*/
+/* width */
+    ::-webkit-scrollbar {width: 8px;}
+/* Track */
+    ::-webkit-scrollbar-track {background: #f1f1f1;}
+/* Handle */
+    ::-webkit-scrollbar-thumb {background: #888;}
+/* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {background: #555;}
+
+
+/*--------------Buttons-----------------*/
+.custom-btn{
+   background-color: #04263D;
+   border-radius: 5px;
+   color: #AAAAAA;
+   padding: 10px 20px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+}
+
+.custom-btn-lg{
+   padding: 15px 40px;
+}
+
+.nav-btn{
+   background-color: #04263D;
+   border-radius: 5px;
+   color: #AAAAAA;
+   padding: 8px 16px;
+   text-align: center;
+   text-decoration: none;
+   font-size: 12px;
+   border: none;
+   display: inline-flex;
+   align-items:  flex-end ;
+}
+.mod-btn{
+  background-color: #04263D;
+  border-radius: 5px;
+  color: #AAAAAA;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  border: none;
+  display: inline-flex;
+  align-items:  flex-end ;
+}
+.register {
+  height: 450px;
+  overflow-y: auto;
+}
+.nav-btn-side{
+   background-color: #04263D;
+   border-radius: 5px;
+   color: #AAAAAA;
+   padding: 10px 16px;
+   text-align: center;
+   text-decoration: none;
+   text-decoration: none;
+   border: none;
+}
+
+.black {
+   color: #AAAAAA;
+   background-color: #04263D;
+}
+
+.black:hover{
+    background-color: #0B64A0;
+    color: #AAAAAA;
+}
+
+.red {
+    color: white;
+    background-color: #e62a2a;
+}
+
+.red:hover{
+    background-color: #EDB013;
+    color: white;
+}
+
+/*---------------Hero div------------------*/
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+
+}
+
+li {
+  padding: 8px 20px;
+  display: flex;
+  color: black;
+  text-align: left;
+  text-decoration: none;
+}
+
+li img{
+    padding-right: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  li img{
+    padding-right: 5px;
+    height: 20px;
+    width: 30px;
+    text-align: left;
+  }
+
+  ul{
+     margin-top: 10px; 
+  }
+}
+
+
+
+/*--------------Navbar-----------------*/
+
+.logo{
+    width: auto;
+    height: 50px;
+    float: left;
+}
+
+.logo-div{
+  display: inline;
+  align-items:  flex-start ;
+  flex-direction: row;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.topnav a  {
+  display: inline-flex;
+  align-items:  flex-end ;
+  flex-direction: row-reverse;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.topnav a:hover {
+  border-bottom: 4px solid  #e62a2a;
+}
+
+.topnav a.active {
+  border-bottom: 4px solid  #e62a2a;
+}
+
+.topnav a.icon {
+  display: none;
+  text-decoration: none;
+  border: none;
+  cursor:pointer
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+
+/*--------------Sidebar-----------------*/
+
+.sidenav {
+  display: block;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 100px;
+}
+
+.sidenav a {
+  padding: 8px 8px 30px 32px;
+  display: block;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+/*-----------------Card---------------------*/
+
+.card{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: 20px;
+}
+
+.loading-bar {
+  width: 100%;
+  height: 4px;
+  background: #f3f3f3;
+  overflow: hidden;
+  position: relative;
+  display: none; /* Hidden by default */
+}
+.loading-bar div {
+  width: 0;
+  height: 100%;
+  background: #ff0000;
+  position: absolute;
+  animation: loading 2s infinite;
+}
+
+.flexible {
+    flex-grow: 1;
+}
+
+/*...................Tab..................*/
+
+.tab {
+  float: left;
+  border: 1px solid #64C5B4;
+  background-color: #f1f1f1;
+  width: 20%;
+  height: 300px;
+}
+
+/* buttons that are used to open the tab content */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* active/current "tab button" class */
+.tab button.active {
+  border-right: 4px solid #64C5B4;
+}
+
+/* tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 80%;
+  border-left: none;
+  height: 300px;
+  overflow-x: auto;
+}
+
+.center {
+  margin: auto;
+  width: 80%;
+
+}
+
+.center-w100{
+  margin: auto;
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .center{
+    width: 100%; 
+  }
+  .div-heading{
+        width: 100%;
+        text-align: center;
+    }
+    .tab{
+        width: 25%;
+    }
+    .tabcontent{
+        width: 75%;
+    }
+  }
+
+  .custom-card-body {
+    margin-bottom: 10px;
+}
+
+.custom-paragraph {
+    margin-bottom: 10px;
+}
+

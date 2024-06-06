@@ -1,14 +1,13 @@
 from views import app_views
-from flask import send_file,redirect,request,session
+from flask import send_file,session
 from models.csv import dCsv
 from models.xlsx import dXlsx
 
-@app_views.route('/downloadXlsx',methods=['GET','POST'])
-def downloadXlsx():
-    f=session['fields']
+@app_views.route('/downloadXlsx/<site>',methods=['GET'])
+def downloadXlsx(site):
     try:
         csv=dCsv()
-        csvFile=csv.dataToCsv(fields=f,data=session['data'])
+        csvFile=csv.dataToCsv(fields=session['fields'],data=session[site])
         xlsx=dXlsx()
         file=xlsx.csvToXlsx(file=csvFile)
         return send_file(file,as_attachment=True,download_name='file.xlsx' ,mimetype='application/vnd.ms-excel')

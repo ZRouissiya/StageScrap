@@ -10,7 +10,7 @@ class scrap:
         tag = page.find_all("div",class_="demand-container p-xxs m-b-xs")
         tag2 = page.find_all("div",class_="demand-container p-xxs m-b-xs bg-muted")
         demandes=[]
-        for i in range(1,int(numPage)):
+        for i in range(1,int(numPage)+1):
 
             if tag: 
                 for res in tag:
