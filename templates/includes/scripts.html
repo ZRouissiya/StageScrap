@@ -2,13 +2,17 @@
 <script src="{{ url_for('static', filename='dist/main.bundle.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
 <script>
-    var $rows = $('#tableData tr');
-$('#searchBar').keyup(function() {
-    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-    
-    $rows.show().filter(function() {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        return !~text.indexOf(val);
-    }).hide();
-});
+ document.getElementById('searchBar').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#tableData tr');
+            
+            rows.forEach(row => {
+                const rowText = row.textContent.toLowerCase();
+                if (rowText.includes(searchValue)) {
+                    row.classList.remove('hidden');
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
+        });
     </script>

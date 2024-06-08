@@ -9,8 +9,8 @@
         class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flex items-center justify-between mb-4">
           <div class="flex-shrink-0">
-            <span class="text-xl font-bold leading-none text-gray-900 sm:text-2xl dark:text-white">Postes</span>
-            <h3 class="text-base font-light text-gray-500 dark:text-gray-400">Nombres de postes</h3>
+            <span class="text-xl font-bold leading-none text-gray-900 sm:text-2xl dark:text-white">Stagiaires.ma</span>
+            <h3 class="text-base font-light text-gray-500 dark:text-gray-400">Secteurs selon dates de debuts des demandes de stage</h3>
           </div>
           
         </div>
@@ -19,9 +19,9 @@
         <div
           class="flex items-center justify-between pt-3 mt-4 border-t border-gray-200 sm:pt-6 dark:border-gray-700">
           <div>
-            <button
+            <button 
               class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 rounded-lg hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-              >Derniers 7 jours </button>
+              ><a href="/stagiaire">Consulter table</a>  </button>
             <!-- Dropdown menu -->
             
           </div>
@@ -36,42 +36,29 @@
       <div
         class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
-          <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">New products</h3>
-          <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">2,340</span>
+          <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">MarocAnnonces.ma</h3>
+          <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">Niveau / Poste</span>
           <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
             <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true">
-                <path clip-rule="evenodd" fill-rule="evenodd"
-                  d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z">
-                </path>
-              </svg>
-              12.5%
             </span>
-            Since last month
+            Derniers postes
           </p>
         </div>
-        <div class="w-full" id="new-products-chart"></div>
+        <div class="w-full" id="niveau-chart"></div>
       </div>
       <div
         class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
-          <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Users</h3>
-          <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">2,340</span>
+          <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">MarocAnnonces.ma</h3>
+          <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">Domaine / Poste</span>
           <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
             <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true">
-                <path clip-rule="evenodd" fill-rule="evenodd"
-                  d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z">
-                </path>
-              </svg>
-              3,4%
+             
             </span>
-            Since last month
+            Derniers postes
           </p>
         </div>
-        <div class="w-full" id="week-signups-chart"></div>
+        <div class="w-full" id="domaine-chart"></div>
       </div>
     </div>
 
@@ -139,7 +126,7 @@
         <div>
           <button
             class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 rounded-lg hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-            type="button" >8 éléments</button>          
+            type="button" >24 éléments</button>          
         </div>
         <div class="flex-shrink-0">
           <a href="/stagiaire"
