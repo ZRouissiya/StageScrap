@@ -1,8 +1,7 @@
 import ApexCharts from 'apexcharts';
 
 const getMainChartOptions = () => {
-	let mainChartColors = {}
-
+	let mainChartColors = {} 
 	if (document.documentElement.classList.contains('dark')) {
 		mainChartColors = {
 			borderColor: '#374151',

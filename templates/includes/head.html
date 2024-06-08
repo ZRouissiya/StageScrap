@@ -19,9 +19,10 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="theme-color" content="#ffffff">
 
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <link rel="stylesheet" href="{{ url_for('static', filename='dist/main.css') }}">
-
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
 
   if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {

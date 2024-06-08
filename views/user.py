@@ -81,3 +81,32 @@ def changePassword():
         cursor.execute(sql)
         db.commit()
         return render_template('accounts/profileChanged.html')
+
+@app_views.route('/updateData', methods=['POST'],strict_slashes=False)
+def updateData():
+    prenom=request.form.get('prenom')
+    nom=request.form.get('nom')
+    email=request.form.get('email')
+    if email == session['email']:
+        rs=[]
+    else:
+        cursor.execute(f"SELECT * FROM user WHERE email='{email}'")
+        rs=cursor.fetchall()
+    if len(rs)>0:
+        return render_template('accounts/profileErrorEmail.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
+    else:
+        try:
+            cursor.execute(f"UPDATE `user` SET `email`='{email}' WHERE email='{session['email']}'")
+            session['email']=email
+            if len(nom)==0 and len(prenom)==0 :
+                sql=f"UPDATE `userdata` SET `nom`='{nom}',`prenom`='{prenom}' WHERE userId = (SELECT userId from user where email='{session['email']}')"
+                cursor.execute(sql)
+                session['nom']=nom
+                session['prenom']=prenom
+                session['email']=email
+                db.commit()
+                return render_template('accounts/profileChanged.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
+        except Exception as ex:
+            return render_template('accounts/profileError.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
+    return render_template('accounts/profileError.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
+            

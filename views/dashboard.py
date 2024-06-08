@@ -5,11 +5,13 @@ from models.scrapMAStage import MAStage
 @app_views.route("/dashboard",strict_slashes=False)
 def dashboard():
     if session.get('logged'):
-        scr=scrap()
-        demandes=scr.demandes(numPage=2)
-        session['stagiaires']=demandes
-        scr=MAStage()
-        demandes=scr.scrapData(numPage=2)
-        session['marocAnnonces']=demandes
-        return render_template("dashboard.html",email=session['email'],Stagiaires=session['stagiaires'],MarocAnnonces=session['marocAnnonces'])
+        # scr=scrap()
+        # demandes=scr.demandes(numPage=2)
+        # session['stagiaires']=demandes
+        # scr=MAStage()
+        # demandes=scr.scrapData(numPage=2)
+        # session['marocAnnonces']=demandes
+        return render_template("dashboard.html",email=session['email'])
+        
+        #return render_template("dashboard.html",email=session['email'],Stagiaires=session['stagiaires'],MarocAnnonces=session['marocAnnonces'])
     return redirect("/")
