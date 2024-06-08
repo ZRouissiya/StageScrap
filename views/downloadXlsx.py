@@ -9,7 +9,7 @@ def downloadXlsx(site):
         csv=dCsv()
         csvFile=csv.dataToCsv(fields=session['fields'],data=session[site])
         xlsx=dXlsx()
-        file=xlsx.csvToXlsx(file=csvFile)
+        file=xlsx.csvToXlsx(file=csvFile) 
         return send_file(file,as_attachment=True,download_name='file.xlsx' ,mimetype='application/vnd.ms-excel')
     except Exception as e:
         return f"Erreur lors de la création du fichier CSV : {str(e)}", 500

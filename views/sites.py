@@ -12,7 +12,7 @@ def stagiaire(numPg=None):
                 scr=scrap()
                 demandes=scr.demandes(numPage=numPg)
                 session['stagiaires']=demandes
-                session['fields']=['Date de debut', 'Niveau', 'Ecole', 'Secteur', 'Lieu','Lien']
+            session['fields']=['Date de debut', 'Niveau', 'Ecole', 'Secteur', 'Lieu','Lien']
         return render_template("pages/stagiaire.html",Stagiaires=session['stagiaires'])
     return 'unauthorized'
 
@@ -30,6 +30,6 @@ def marocAnnonces(numPg=None):
                 scr=MAStage()
                 demandes=scr.scrapData(numPage=numPg)
                 session['marocAnnonces']=demandes
-                session['fields']=['Titre', 'Domaine', 'Duree', 'Niveau', 'Lien']
+            session['fields']=['Titre', 'Domaine', 'Duree', 'Niveau', 'Lien']
         return render_template("pages/marocAnnonces.html",MarocAnnonces=session['marocAnnonces'])
     return 'unauthorized'
