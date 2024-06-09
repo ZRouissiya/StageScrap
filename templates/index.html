@@ -61,8 +61,10 @@
             style=" margin-left: auto; margin-right: 0px;">
 
             <a href="#home" class="active">Accueil</a>
-            <a href="#stagiaires">Stagiaires.ma</a>
-            <a href="#marocannonces">MarocAnnonces.ma</a>
+            <a href="{% if logged is defined %} /stagiaire {% endif %}" data-toggle="modal"
+            data-target="#loginModal">Stagiaires.ma</a>
+            <a href="{% if logged is defined %} /marocannonces {% endif %}" data-toggle="modal"
+            data-target="#loginModal">MarocAnnonces.ma</a>
             <a href="#site">Site.ma</a>
             {% if logged is defined %}
             <a href="/dashboard"><svg xmlns="http://www.w3.org/2000/svg"
@@ -86,8 +88,10 @@
             <a href="javascript:void(0)" class="closebtn"
               onclick="closeNav()">&times;</a>
             <a href="#home" class="active">Accueil</a>
-            <a href="#stagiaires">Stagiaires.ma</a>
-            <a href="#marocannonces">MarocAnnonces.ma</a>
+            <a href="{% if logged is defined %} /stagiaire {% endif %}" data-toggle="modal"
+            data-target="#loginModal">Stagiaires.ma</a>
+            <a href="{% if logged is defined %} /marocannonces {% endif %}" data-toggle="modal"
+            data-target="#loginModal">MarocAnnonces.ma</a>
             <a href="#site">Site.ma</a>
             {% if logged is defined %}
             <a href="/logout"><svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -269,16 +273,13 @@
           </div>
         </div>
         <div class="col-md-6">
-          <!-- <object type="image/svg+xml" data="images/animation_vector.svg">
-                    <img src="images/animation_vector.svg" />
-                </object> -->
+
           <lottie-player
             src="https://uploads-ssl.webflow.com/615d70fffa2edc3490194423/62fe90ff313c086d291183d1_animation_l6ze9o8n.json"
             background="transparent" speed="1"
             style="width: auto; height: auto;" loop autoplay></lottie-player>
         </div>
       </div>
-      <!-- hero end -->
 
       <!-- customer logos start -->
       <div class="row center">

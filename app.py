@@ -16,11 +16,17 @@ def index():
         return render_template("index.html")
     return render_template("index.html")
 
-@app.route('/test')
-def test():
-    return render_template('accounts/profileError.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
+@app.errorhandler(404)
+def error404(e):
+    return render_template("errorPages/error404.html",logged=session['logged']),404
 
+@app.errorhandler(401)
+def error401(e):
+    return render_template("errorPages/error401.html",logged=session['logged']),401
 
+@app.errorhandler(500)
+def error500(e):
+    return render_template("errorPages/error500.html",logged=session['logged']),500
 
 if __name__ == "__main__":
     app.run(debug=True)

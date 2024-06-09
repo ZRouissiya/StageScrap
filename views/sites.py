@@ -1,4 +1,4 @@
-from flask import render_template,session,redirect,request
+from flask import render_template,session,redirect,request,abort
 from models.scrapStagiaires import scrap
 from models.scrapMAStage import MAStage
 from views import app_views
@@ -13,8 +13,8 @@ def stagiaire(numPg=None):
                 demandes=scr.demandes(numPage=numPg)
                 session['stagiaires']=demandes
             session['fields']=['Date de debut', 'Niveau', 'Ecole', 'Secteur', 'Lieu','Lien']
-        return render_template("pages/stagiaire.html",Stagiaires=session['stagiaires'])
-    return 'unauthorized'
+            return render_template("pages/stagiaire.html",Stagiaires=session['stagiaires'])
+    return abort(401)
 
 @app_views.route('/chercher/<site>',methods=['POST'],strict_slashes=False)
 def chercherStagiaires(site):
@@ -31,5 +31,5 @@ def marocAnnonces(numPg=None):
                 demandes=scr.scrapData(numPage=numPg)
                 session['marocAnnonces']=demandes
             session['fields']=['Titre', 'Domaine', 'Duree', 'Niveau', 'Lien']
-        return render_template("pages/marocAnnonces.html",MarocAnnonces=session['marocAnnonces'])
-    return 'unauthorized'
+            return render_template("pages/marocAnnonces.html",MarocAnnonces=session['marocAnnonces'])
+    return abort(401)
