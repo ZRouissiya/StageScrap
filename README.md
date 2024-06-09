@@ -67,6 +67,7 @@ Follow these steps to set up the project on your local machine:
 - **Data Export**: pandas, XlsxWriter, csv
 
 ## Project Structure
+```sh
 |   .gitignore
 |   app.py
 |   package-lock.json
@@ -144,4 +145,4 @@ Follow these steps to set up the project on your local machine:
 |   |   sites.py
 |   |   user.py
 |   |   __init__.py
-     
+   ```  
