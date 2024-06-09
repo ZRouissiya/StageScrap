@@ -1,4 +1,4 @@
-from flask import send_file,session
+from flask import send_file,session,abort
 from models.csv import dCsv
 from views import app_views
 
@@ -9,5 +9,5 @@ def download(site):
         file=csv.dataToCsv(fields=session['fields'],data=session[site])
         return send_file(file,as_attachment=True,download_name='file.csv' ,mimetype='text/csv')
     except Exception as e:
-        return f"Erreur lors de la création du fichier CSV : {str(e)}", 500
+        return abort(500)
     
