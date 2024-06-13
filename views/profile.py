@@ -23,11 +23,10 @@ def changePassword():
             user=pickle.loads(currentUser)
             if password==user.password:
                 if user.updatePassword(newPassword):
-                    return render_template('accounts/profileChanged.html',fullname=user.fullname(),nom=user.lastName,prenom=user.name,email=user.email,lastLogin=user.lastLogin,creationDate=user.createDate)
-            else:
-                return render_template('accounts/profileError.html',fullname=user.fullname(),nom=user.lastName,prenom=user.name,email=user.email,lastLogin=user.lastLogin,creationDate=user.createDate)
+                    return render_template('accounts/profileChanged.html',fullname=user.fullname(),nom=user.lastName,prenom=user.name,email=user.email,lastLogin=user.lastLogin,creationDate=user.createDate),200 
+            return render_template('accounts/profileError.html',fullname=user.fullname(),nom=user.lastName,prenom=user.name,email=user.email,lastLogin=user.lastLogin,creationDate=user.createDate), 301
         except Exception as e:
-            return render_template('accounts/profileError.html',fullname=user.fullname(),nom=user.lastName,prenom=user.name,email=user.email,lastLogin=user.lastLogin,creationDate=user.createDate)
+            return render_template('accounts/profileError.html',fullname=user.fullname(),nom=user.lastName,prenom=user.name,email=user.email,lastLogin=user.lastLogin,creationDate=user.createDate),302
     return abort(500)
 
 @app_views.route('/updateData', methods=['POST'],strict_slashes=False)
@@ -41,8 +40,8 @@ def updateData():
         if userPre.updateData(prenom,nom,email)==1:
             session['user']=pickle.dumps(userPre)
             user=pickle.loads(session['user'])
-            return render_template('accounts/profileChanged.html',fullname=user.fullname(),nom=user.lastName,prenom=user.name,email=user.email,lastLogin=user.lastLogin,creationDate=user.createDate)
+            return render_template('accounts/profileChanged.html',fullname=user.fullname(),nom=user.lastName,prenom=user.name,email=user.email,lastLogin=user.lastLogin,creationDate=user.createDate),200
         elif userPre.updateData(prenom,nom,email)==0:
-            return render_template('accounts/profileErrorEmail.html',fullname=userPre.fullname(),nom=userPre.lastName,prenom=userPre.name,email=userPre.email,lastLogin=userPre.lastLogin,creationDate=userPre.createDate)        
-    return render_template('accounts/profileError.html',fullname=userPre.fullname(),nom=userPre.lastName,prenom=userPre.name,email=userPre.email,lastLogin=userPre.lastLogin,creationDate=userPre.createDate)
+            return render_template('accounts/profileErrorEmail.html',fullname=userPre.fullname(),nom=userPre.lastName,prenom=userPre.name,email=userPre.email,lastLogin=userPre.lastLogin,creationDate=userPre.createDate),301   
+    return render_template('accounts/profileError.html',fullname=userPre.fullname(),nom=userPre.lastName,prenom=userPre.name,email=userPre.email,lastLogin=userPre.lastLogin,creationDate=userPre.createDate),302
 
