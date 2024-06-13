@@ -12,7 +12,7 @@ def dashboard():
         scr=MAStage()
         demandes=scr.scrapData(numPage=2)
         session['marocAnnonces']=demandes
-        currentUser=session.get('user')
+        currentUser=session['user']
         user=pickle.loads(currentUser)
         return render_template("dashboard.html",email=user.email,Stagiaires=session['stagiaires'],MarocAnnonces=session['marocAnnonces'])
     return redirect("/")

@@ -2,6 +2,7 @@ from flask import render_template,session,redirect,request,abort
 from models.scrapStagiaires import scrap
 from models.scrapMAStage import MAStage
 from views import app_views
+import pickle
 
 @app_views.route('/stagiaire',strict_slashes=False)
 @app_views.route('/stagiaire/<numPg>',strict_slashes=False)
@@ -11,8 +12,10 @@ def stagiaire(numPg=None):
             scr=scrap()
             demandes=scr.demandes(numPage=numPg)
             session['stagiaires']=demandes
+        currentUser=session['user']
+        user=pickle.loads(currentUser)
         session['fields']=['Date de debut', 'Niveau', 'Ecole', 'Secteur', 'Lieu','Lien']
-        return render_template("pages/stagiaire.html",Stagiaires=session['stagiaires'])
+        return render_template("pages/stagiaire.html",email=user.email,Stagiaires=session['stagiaires'])
     return abort(401)
 
 @app_views.route('/chercher/<site>',methods=['POST'],strict_slashes=False)
@@ -28,6 +31,8 @@ def marocAnnonces(numPg=None):
             scr=MAStage()
             demandes=scr.scrapData(numPage=numPg)
             session['marocAnnonces']=demandes
+        currentUser=session['user']
+        user=pickle.loads(currentUser)
         session['fields']=['Titre', 'Domaine', 'Duree', 'Niveau', 'Lien']
-        return render_template("pages/marocAnnonces.html",MarocAnnonces=session['marocAnnonces'])
+        return render_template("pages/marocAnnonces.html",email=user.email,MarocAnnonces=session['marocAnnonces'])
     return abort(401)

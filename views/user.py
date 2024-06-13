@@ -45,7 +45,6 @@ def signUp():
                 session['user']=pickle.dumps(user)
                 return redirect("/dashboard",code=301)
         except Exception as e:
-            print(e)
             return redirect("/",code=302)
     return redirect("/",code=303)
 
