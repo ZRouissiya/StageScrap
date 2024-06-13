@@ -1,8 +1,9 @@
 from views import app_views
-from flask import request,render_template,session,redirect
+from flask import request,render_template,session,redirect,abort
 import mysql.connector as con
-import datetime
+from models.user import User
 from flask_bcrypt import Bcrypt
+import pickle
 bc=Bcrypt()
 db=con.connect(host="localhost",user="root",password="",database='db_stage')
 cursor=db.cursor()
@@ -16,16 +17,15 @@ def logIn():
         if len(rs) > 0:
             password=request.form['password']
             if bc.check_password_hash(rs[0][2],password):
-                    session['email']=email
-                    session['password']=password
-                    session['logged']=True
-                    cursor.execute(f"SELECT * FROM userData WHERE userId='{rs[0][0]}'")
-                    rs_data=cursor.fetchall()
-                    session['creationDate']=rs_data[0][3]
-                    session['lastLogin']=rs_data[0][4]
-                    session['nom']=rs_data[0][1]
-                    session['prenom']=rs_data[0][2]
-                    return redirect("/dashboard",code=301)
+                cursor.execute(f"SELECT * FROM userData WHERE userId='{rs[0][0]}'")
+                rs_data=cursor.fetchall()
+                creationDate=rs_data[0][3]
+                lastLogin=rs_data[0][4]
+                nom=rs_data[0][1]
+                prenom=rs_data[0][2]
+                currentUser=User(prenom,nom,email,password,creationDate,lastLogin,rs[0][0])
+                session['user']=pickle.dumps(currentUser)
+                return redirect("/dashboard",code=301)
     except Exception as e:
         return redirect("/",code=303)
     return redirect("/",code=303)
@@ -40,73 +40,26 @@ def signUp():
     conPassword=request.form.get('conPassword')
     if(password == conPassword):
         try:
-            hashedPwd=bc.generate_password_hash(password).decode("utf-8")
-            sql="INSERT INTO user (email,password) VALUES (%s,%s)"
-            val=(email,hashedPwd)
-            cursor.execute(sql,val)
-            id=cursor.lastrowid
-            sql2="INSERT INTO userdata (userId,nom,prenom,creationDate,lastLogin) VALUES (%s,%s,%s,CURDATE(),CURDATE())"
-            val2=(int(id),nom,prenom)
-            cursor.execute(sql2,val2)
-            db.commit()
-            session['nom']=nom
-            session['prenom']=prenom
-            session['email']=email
-            session['password']=password
-            session['creationDate']=datetime.datetime.today
-            session['lastLogin']=datetime.datetime.today
-            session['logged']=True
-            return redirect("/dashboard",code=301)
+            user=User(prenom,nom,email,password)
+            if user.insert():
+                session['user']=pickle.dumps(user)
+                return redirect("/dashboard",code=301)
         except Exception as e:
-            return redirect("/",code=303)
+            print(e)
+            return redirect("/",code=302)
     return redirect("/",code=303)
 
 
 @app_views.route('/logout',strict_slashes=False)
 def logout():
-    cursor.execute(f"UPDATE `userdata` SET `lastLogin`=CURDATE() WHERE userId = (SELECT userId from user where email='{session['email']}')")
-    db.commit()
-    session['logged']=False
-    return redirect('/',code=303)
-
-
-
-@app_views.route('/changePassword',strict_slashes=False,methods=['POST'])
-def changePassword():
-    password=request.form.get('current_password')
-    newPassword=request.form.get('new_password')
-    if password==session['password']:
-        hashedPwd=bc.generate_password_hash(newPassword).decode('utf-8')
-        sql=f"UPDATE user SET password='{hashedPwd}' where email='{session['email']}'"
-        cursor.execute(sql)
-        db.commit()
-        return render_template('accounts/profileChanged.html')
-
-@app_views.route('/updateData', methods=['POST'],strict_slashes=False)
-def updateData():
-    prenom=request.form.get('prenom')
-    nom=request.form.get('nom')
-    email=request.form.get('email')
-    if email == session['email']:
-        rs=[]
-    else:
-        cursor.execute(f"SELECT * FROM user WHERE email='{email}'")
-        rs=cursor.fetchall()
-    if len(rs)>0:
-        return render_template('accounts/profileErrorEmail.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
-    else:
+    if 'user' in session:
         try:
-            cursor.execute(f"UPDATE `user` SET `email`='{email}' WHERE email='{session['email']}'")
-            session['email']=email
-            if len(nom)==0 and len(prenom)==0 :
-                sql=f"UPDATE `userdata` SET `nom`='{nom}',`prenom`='{prenom}' WHERE userId = (SELECT userId from user where email='{session['email']}')"
-                cursor.execute(sql)
-                session['nom']=nom
-                session['prenom']=prenom
-                session['email']=email
-                db.commit()
-                return render_template('accounts/profileChanged.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
-        except Exception as ex:
-            return render_template('accounts/profileError.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
-    return render_template('accounts/profileError.html',fullname=session['nom']+' '+session['prenom'],nom=session['nom'],prenom=session['prenom'],email=session['email'],lastLogin=session['lastLogin'],creationDate=session['creationDate'])
-            
+            currentUser=session['user']
+            user=pickle.loads(currentUser)
+            if user.logOut():
+                session.pop('user')
+                return redirect('/',code=301)
+        except Exception as e:
+            return redirect('/dashboard',code=303)
+        return redirect('/dashboard',code=303)
+        

@@ -60,7 +60,7 @@
             id="myTopnav"
             style=" margin-left: auto; margin-right: 0px;">
 
-            <a href="#home" class="active">Accueil</a>
+            <a href="#home" class="">Accueil</a>
             <a href="{% if logged is defined %} /stagiaire {% endif %}"
               data-toggle="modal"
               data-target="#loginModal">Stagiaires.ma</a>
@@ -68,7 +68,7 @@
               data-toggle="modal"
               data-target="#loginModal">MarocAnnonces.ma</a>
             <a href="#site">Site.ma</a>
-            {% if logged is defined %}
+            {% if user is defined %}
             <a href="/dashboard"><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30" height="30" fill="currentColor"
@@ -92,7 +92,7 @@
           <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn"
               onclick="closeNav()">&times;</a>
-            <a href="#home" class="active">Accueil</a>
+            <a href="/" class="">Accueil</a>
             <a href="{% if logged is defined %} /stagiaire {% endif %}"
               data-toggle="modal"
               data-target="#loginModal">Stagiaires.ma</a>
@@ -100,7 +100,7 @@
               data-toggle="modal"
               data-target="#loginModal">MarocAnnonces.ma</a>
             <a href="#site">Site.ma</a>
-            {% if logged is defined %}
+            {% if user is defined %}
             <a href="/dashboard"><svg
                 xmlns="http://www.w3.org/2000/svg" width="16"
                 height="16" fill="currentColor"
