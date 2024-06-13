@@ -27,4 +27,4 @@ def error500(e):
     return render_template("errorPages/error500.html",logged=session.get('logged')),500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
